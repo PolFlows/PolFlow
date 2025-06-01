@@ -3,25 +3,203 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  /* Light theme variables */
+  --background-color: #f8fafc;
+  --text-color: #0f172a;
+  --card-background: #ffffff;
+  --border-color: #e2e8f0;
+  --primary-color: #3b82f6;
+  --primary-hover: #2563eb;
+  --secondary-color: #10b981;
+  --secondary-hover: #059669;
+  --accent-color: #8b5cf6;
+  --accent-hover: #7c3aed;
+  --success-color: #22c55e;
+  --warning-color: #f59e0b;
+  --error-color: #ef4444;
+  --info-color: #0ea5e9;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+.dark {
+  /* Dark theme variables */
+  --background-color: #0f172a;
+  --text-color: #f8fafc;
+  --card-background: #1e293b;
+  --border-color: #334155;
+  --primary-color: #3b82f6;
+  --primary-hover: #60a5fa;
+  --secondary-color: #10b981;
+  --secondary-hover: #34d399;
+  --accent-color: #8b5cf6;
+  --accent-hover: #a78bfa;
+  --success-color: #22c55e;
+  --warning-color: #f59e0b;
+  --error-color: #ef4444;
+  --info-color: #0ea5e9;
+}
+
+@layer base {
+  html {
+    @apply scroll-smooth;
+  }
+  
+  body {
+    @apply bg-slate-900 text-white transition-colors duration-200;
+    color: var(--text-color);
+    background-color: var(--background-color);
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold;
+  }
+  
+  h1 {
+    @apply text-3xl md:text-4xl;
+  }
+  
+  h2 {
+    @apply text-2xl md:text-3xl;
+  }
+  
+  h3 {
+    @apply text-xl md:text-2xl;
+  }
+  
+  h4 {
+    @apply text-lg md:text-xl;
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+/* ReactFlow Customizations */
+.react-flow__node {
+  @apply shadow-md transition-shadow duration-200;
+}
+
+.react-flow__node.selected {
+  @apply shadow-lg;
+}
+
+.react-flow__handle {
+  @apply transition-all duration-200;
+}
+
+.react-flow__handle:hover {
+  @apply scale-125;
+}
+
+.react-flow__edge-path {
+  @apply stroke-2;
+}
+
+.react-flow__edge.selected .react-flow__edge-path {
+  @apply stroke-[3px];
+}
+
+.react-flow__controls {
+  @apply bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-md;
+}
+
+.react-flow__controls-button {
+  @apply border-gray-200 dark:border-gray-700 text-gray-800 dark:text-gray-200 hover:bg-blue-500/10;
+}
+
+/* Animated edges */
+.react-flow__edge-path.animated {
+  stroke-dasharray: 5;
+  animation: flowAnimation 1s infinite linear;
+}
+
+@keyframes flowAnimation {
+  from {
+    stroke-dashoffset: 10;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-500 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-600;
+}
+
+/* Edge type styles */
+.data-flow-edge .react-flow__edge-path {
+  stroke: #3b82f6; /* blue-500 */
+}
+
+.asset-flow-edge .react-flow__edge-path {
+  stroke: #10b981; /* green-500 */
+}
+
+.logic-flow-edge .react-flow__edge-path {
+  stroke: #f97316; /* orange-500 */
+}
+
+.cross-chain-edge .react-flow__edge-path {
+  stroke: #8b5cf6; /* purple-500 */
+  stroke-dasharray: 5,5;
+}
+
+/* Custom utility classes */
+.node-handle-left {
+  left: -8px;
+}
+
+.node-handle-right {
+  right: -8px;
+}
+
+.node-handle-top {
+  top: -8px;
+}
+
+.node-handle-bottom {
+  bottom: -8px;
+}
+
+/* Transitions */
+.fade-in {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Toast animations */
+.toast-enter {
+  transform: translateX(100%);
+}
+
+.toast-enter-active {
+  transform: translateX(0);
+  transition: transform 0.3s ease-out;
+}
+
+.toast-exit {
+  transform: translateX(0);
+}
+
+.toast-exit-active {
+  transform: translateX(100%);
+  transition: transform 0.3s ease-in;
 }
